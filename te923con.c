@@ -208,6 +208,28 @@ Te923DevSet_t *poll_status() {
     return status;
 }
 
+Te923DataSet_t get_memdump(int is_big) {
+    Te923DataSet_t *data = poll_memdump(is_big);
+    Te923DataSet_t r_data = *data;
+    free(data);
+    return r_data;
+}
+
+Te923DataSet_t get_rtdata() {
+    Te923DataSet_t *data = poll_rtdata();
+    Te923DataSet_t r_data = *data;
+    free(data);
+    return r_data;
+}
+
+Te923DevSet_t get_status() {
+    Te923DevSet_t *data = poll_status();
+    Te923DevSet_t r_data = *data;
+    free(data);
+    return(r_data);
+}
+
+
 int main( int argc, char **argv ) {
   
   char *iText = NULL;

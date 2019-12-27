@@ -291,7 +291,7 @@ int get_te923_memdata( usb_dev_handle *devh , Te923DataSet_t *data , unsigned sh
     radr = 0x01FFEC;
   }
 
-  if ( data->__src == 0 ) {
+  if ( data->_src == 0 ) {
     //first read, get oldest data
     int last_adr = 0x0000FB;
     do
@@ -299,7 +299,7 @@ int get_te923_memdata( usb_dev_handle *devh , Te923DataSet_t *data , unsigned sh
     while ( ret <= 0 );
     adr = (((( int )buf[3] ) * 0x100 + ( int )buf[5] ) * 0x26 ) + 0x101;
   } else
-    adr = data->__src;
+    adr = data->_src;
   
   time_t tm = time( NULL );
   struct tm *timeinfo = localtime( &tm );
@@ -337,7 +337,7 @@ int get_te923_memdata( usb_dev_handle *devh , Te923DataSet_t *data , unsigned sh
   adr += 0x16;
   if ( adr > radr )
     adr = 0x000101;
-  data->__src = adr;
+  data->_src = adr;
   
   return 0;
 }

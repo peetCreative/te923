@@ -58,7 +58,7 @@ typedef struct {
   // -4 => any other error
   signed char _t[6], _h[6];
   signed char _press, _uv, _wDir, _wSpeed, _wGust, _wChill, _RainCount, _storm, _forecast;
-  unsigned int __src;                     // source adress of dataset (needed for dump)
+  unsigned int _src;                     // source adress of dataset (needed for dump)
   } Te923DataSet_t;
 
 
@@ -85,4 +85,8 @@ void printData( Te923DataSet_t *data, char *iText );
 Te923DataSet_t *poll_memdump(int is_big);
 Te923DataSet_t *poll_rtdata();
 Te923DevSet_t *poll_status();
+
+Te923DataSet_t get_memdump(int is_big);
+Te923DataSet_t get_rtdata();
+Te923DevSet_t get_status();
 #endif /* TE923CON_H_ */
