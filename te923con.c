@@ -189,6 +189,7 @@ Te923DataSet_t *poll_rtdata() {
     data = ( Te923DataSet_t* )malloc( sizeof( Te923DataSet_t ) );
     memset ( data, 0, sizeof ( Te923DataSet_t ) );
     if (get_te923_lifedata( devh, data )) {
+        free(data);
         return NULL;
     }
     te923_close( devh );
@@ -203,29 +204,53 @@ Te923DevSet_t *poll_status() {
     }
     Te923DevSet_t *status;
     status = ( Te923DevSet_t* )malloc( sizeof( Te923DevSet_t ) );    
-    get_te923_devstate( devh, status );
+    if (get_te923_devstate( devh, status )){
+        free(status);
+        return NULL;
+    }
     te923_close( devh );
     return status;
 }
 
-Te923DataSet_t get_memdump(int is_big) {
-    Te923DataSet_t *data = poll_memdump(is_big);
-    Te923DataSet_t r_data = *data;
-    free(data);
-    return r_data;
-}
+// Te923DataSet_t get_memdump(int is_big) {
+//     Te923DataSet_t *data = poll_memdump(is_big);
+//     Te923DataSet_t r_data;
+//     if (data) {
+//         r_data = *data;
+//         free(data);
+//     }
+//     else {
+//         //set r_data to 0
+//         memset ( &r_data, 0, sizeof ( Te923DataSet_t ) );
+//     }
+//     return r_data;
+// }
 
 Te923DataSet_t get_rtdata() {
     Te923DataSet_t *data = poll_rtdata();
-    Te923DataSet_t r_data = *data;
-    free(data);
+    Te923DataSet_t r_data;
+    if (data) {
+        r_data = *data;
+        free(data);
+    }
+    else {
+        //set r_data to 0
+        memset ( &r_data, 0, sizeof ( Te923DataSet_t ) );
+    }
     return r_data;
 }
 
 Te923DevSet_t get_status() {
     Te923DevSet_t *data = poll_status();
-    Te923DevSet_t r_data = *data;
-    free(data);
+    Te923DevSet_t r_data;
+    if (data) {
+        r_data = *data;
+        free(data);
+    }
+    else {
+        //set r_data to 0
+        memset ( &r_data, 0, sizeof ( Te923DevSet_t ) );
+    }
     return(r_data);
 }
 

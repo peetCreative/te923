@@ -86,7 +86,7 @@ Te923DataSet_t *poll_memdump(int is_big);
 Te923DataSet_t *poll_rtdata();
 Te923DevSet_t *poll_status();
 
-Te923DataSet_t get_memdump(int is_big);
+//Te923DataSet_t get_memdump(int is_big);
 Te923DataSet_t get_rtdata();
 Te923DevSet_t get_status();
 #endif /* TE923CON_H_ */
